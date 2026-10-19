@@ -1,6 +1,14 @@
 To clip a video using ffmepg: ffmpeg -ss 00:13:10 -t 5 -i Uvic_Bishop_semifinal.mp4 -c:v libx264 -crf 18 -c:a aac clip_1.mp4
 
 
+activate python environment: source ~/sam3-env/bin/activate
+Go to the project folder: cd /media/weiweii/Sep/sportsVisCreator
+
+Pipeline for tennis:
+python scripts/tennis_donuts.py tennis/clip_2.mp4 tennis/rendered_clips/clip_2.mp4 --values 0.166 0.937
+
+
+
 Pipeline to run SAM3
 1. open wsl
 2. activate python environment: source ~/sam3-env/bin/activate
