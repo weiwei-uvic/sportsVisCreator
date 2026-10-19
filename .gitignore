@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Virtual environments
+venv/
+.venv/
+*-env/
+
+# video folders
+/basketball/
+/tennis/
+/swimming/
+
+# Model weights and checkpoints (large files)
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+checkpoints/
+
+# Videos and generated outputs
+*.mp4
+*.mov
+*.avi
+*.mkv
+outputs/
+results/
+
+# Data
+data/
+
+# Secrets
+.env
+*.key
+
+# Editor / OS clutter
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
