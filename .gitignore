@@ -9,10 +9,7 @@ venv/
 .venv/
 *-env/
 
-# video folders
-/basketball/
-/tennis/
-/swimming/
+
 
 # Model weights and checkpoints (large files)
 *.pt

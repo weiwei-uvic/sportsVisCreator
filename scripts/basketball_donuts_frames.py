@@ -389,16 +389,16 @@ class DonutStyle:
     ring_w: float = 0.28      # metres (white/red band)
     outline: float = 0.045    # metres (black outline, each side)
     start_deg: float = 90.0   # where the red arc starts: 0 = 12 o'clock (far baseline), 90 = 3 o'clock
-    opacity: float = 0.92
-    shade: float = 0.85       # 0 = flat colours, 1 = fully follow court lighting
+    opacity: float = 1.0      # 1 = solid, no court showing through
+    shade: float = 0.0        # 0 = exact flat colours (default), 1 = follow court lighting/shadows
     soften: float = 0.6       # px gaussian sigma to match footage softness
     ss: int = 4               # supersampling factor
     n_pts: int = 256
 
 
-WHITE = np.array([245, 245, 245], np.float32)
-RED = np.array([40, 30, 215], np.float32)      # BGR
-BLACK = np.array([10, 10, 10], np.float32)
+WHITE = np.array([255, 255, 255], np.float32)  # #FFFFFF
+RED = np.array([56, 7, 233], np.float32)       # #E90738 (OpenCV stores BGR)
+BLACK = np.array([0, 0, 0], np.float32)        # #000000
 
 
 def _circle_pts(center: np.ndarray, r: float, n: int) -> np.ndarray:
@@ -469,9 +469,9 @@ def render_donut(frame: np.ndarray, occluder: np.ndarray, H: np.ndarray,
     a_outline, a_ring, a_red = down(a_outline), down(a_ring), down(a_red)
     if st.soften > 0:
         k = (0, 0)
+        # soften only the ring's silhouette against the court; the inner
+        # black/white/red boundaries stay crisp so colours remain exact
         a_outline = cv2.GaussianBlur(a_outline, k, st.soften)
-        a_ring = cv2.GaussianBlur(a_ring, k, st.soften)
-        a_red = cv2.GaussianBlur(a_red, k, st.soften)
 
     # colour layers: black -> white -> red
     col = np.empty((rh, rw, 3), np.float32)
@@ -1067,8 +1067,9 @@ def main():
     ap.add_argument("--ring-width", type=float, default=0.28)
     ap.add_argument("--outline", type=float, default=0.045)
     ap.add_argument("--start-deg", type=float, default=90.0)
-    ap.add_argument("--opacity", type=float, default=0.92)
-    ap.add_argument("--shade", type=float, default=0.85)
+    ap.add_argument("--opacity", type=float, default=1.0, help="ring opacity (1 = solid)")
+    ap.add_argument("--shade", type=float, default=0.0,
+                    help="0 = exact colours (default); up to 1 = darken the ring under shadows")
     ap.add_argument("--smooth", type=float, default=0.55)
     ap.add_argument("--hold", type=int, default=8)
     ap.add_argument("--reacquire-m", type=float, default=1.5)

@@ -70,6 +70,9 @@ import threading
 import time
 from dataclasses import dataclass, field
 
+# reduce CUDA memory fragmentation (must be set before torch is imported)
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
+
 import cv2
 import numpy as np
 from tqdm import tqdm
@@ -96,7 +99,7 @@ class Detection:
 class Sam3PersonSegmenter:
     """Thin wrapper around the official SAM 3 image API (facebookresearch/sam3)."""
 
-    def __init__(self, prompt: str = "tennis player", device: str = "cuda"):
+    def __init__(self, prompt: str = "tennis player", device: str = "cuda", bf16_weights: bool = False):
         import torch
         from PIL import Image  # noqa: F401  (imported here so the module loads without SAM 3)
         from sam3.model_builder import build_sam3_image_model
@@ -106,6 +109,9 @@ class Sam3PersonSegmenter:
         self.prompt = prompt
         self.device = device
         model = build_sam3_image_model()
+        if bf16_weights:
+            # halves the weights' GPU memory (~3.4 GB -> ~1.7 GB) for small GPUs
+            model = cast_weights_bf16(model)
         self.processor = Sam3Processor(model)
         self.use_amp = device.startswith("cuda") and torch.cuda.is_available()
 
@@ -138,6 +144,38 @@ class Sam3PersonSegmenter:
                 m = cv2.resize(m, (w, h), interpolation=cv2.INTER_LINEAR)
             dets.append(Detection(mask=m > 0.5, score=float(s)))
         return dets
+
+
+def cast_weights_bf16(model):
+    """
+    Store a SAM 3 model's weights in bfloat16 (about half the GPU memory).
+
+    SAM 3 turns automatic mixed precision off in a few places (e.g. its
+    decoder's feed-forward layers), where a float32 input would then hit a
+    bfloat16 weight and fail. A pre-hook on every layer that owns weights
+    converts floating-point inputs to that layer's dtype, so the whole model
+    runs consistently in bfloat16.
+    """
+    import torch
+
+    model.to(torch.bfloat16)
+
+    def match_dtype(module, args, kwargs):
+        dt = module._weights_dtype
+
+        def cast(x):
+            if torch.is_tensor(x) and x.is_floating_point() and x.dtype != dt:
+                return x.to(dt)
+            return x
+
+        return tuple(cast(a) for a in args), {k: cast(v) for k, v in kwargs.items()}
+
+    for m in model.modules():
+        p = next(m.parameters(recurse=False), None)
+        if p is not None and p.is_floating_point():
+            m._weights_dtype = p.dtype
+            m.register_forward_pre_hook(match_dtype, with_kwargs=True)
+    return model
 
 
 def _to_numpy(x) -> np.ndarray:
@@ -314,16 +352,16 @@ class DonutStyle:
     ring_w: float = 0.28      # metres (white/red band)
     outline: float = 0.045    # metres (black outline, each side)
     start_deg: float = 90.0   # where the red arc starts: 0 = 12 o'clock (far baseline), 90 = 3 o'clock
-    opacity: float = 0.92
-    shade: float = 0.85       # 0 = flat colours, 1 = fully follow court lighting
+    opacity: float = 1.0      # 1 = solid, no court showing through
+    shade: float = 0.0        # 0 = exact flat colours (default), 1 = follow court lighting/shadows
     soften: float = 0.6       # px gaussian sigma to match footage softness
     ss: int = 4               # supersampling factor
     n_pts: int = 256
 
 
-WHITE = np.array([245, 245, 245], np.float32)
-RED = np.array([40, 30, 215], np.float32)      # BGR
-BLACK = np.array([10, 10, 10], np.float32)
+WHITE = np.array([255, 255, 255], np.float32)  # #FFFFFF
+RED = np.array([56, 7, 233], np.float32)       # #E90738 (OpenCV stores BGR)
+BLACK = np.array([0, 0, 0], np.float32)        # #000000
 
 
 def _circle_pts(center: np.ndarray, r: float, n: int) -> np.ndarray:
@@ -394,9 +432,9 @@ def render_donut(frame: np.ndarray, occluder: np.ndarray, H: np.ndarray,
     a_outline, a_ring, a_red = down(a_outline), down(a_ring), down(a_red)
     if st.soften > 0:
         k = (0, 0)
+        # soften only the ring's silhouette against the court; the inner
+        # black/white/red boundaries stay crisp so colours remain exact
         a_outline = cv2.GaussianBlur(a_outline, k, st.soften)
-        a_ring = cv2.GaussianBlur(a_ring, k, st.soften)
-        a_red = cv2.GaussianBlur(a_red, k, st.soften)
 
     # colour layers: black -> white -> red
     col = np.empty((rh, rw, 3), np.float32)
@@ -431,6 +469,36 @@ def render_donut(frame: np.ndarray, occluder: np.ndarray, H: np.ndarray,
 
     out = bg * (1 - alpha[..., None]) + col * alpha[..., None]
     frame[y0c:y1c, x0c:x1c] = np.clip(out, 0, 255).astype(np.uint8)
+
+
+def draw_test_line(frame: np.ndarray, occluder: np.ndarray, H: np.ndarray,
+                   center_m: np.ndarray, st: DonutStyle, thickness_px: int = 2) -> None:
+    """
+    Test overlay: a thin black line across the donut from 12 o'clock (far
+    side) to 6 o'clock (near side), lying on the court like the ring.
+
+    The end points are the ring's outer edge (outer radius + outline) along
+    the court's y axis, projected with the same homography as the ring, so the
+    line follows the perspective. Like the ring, it is hidden behind players.
+    Draw it after render_donut().
+    """
+    h, w = frame.shape[:2]
+    r = st.outer_r + st.outline
+    ends = to_image(H, np.float32([[center_m[0], center_m[1] - r],     # 12 o'clock
+                                   [center_m[0], center_m[1] + r]]))   # 6 o'clock
+    if not np.all(np.isfinite(ends)):
+        return
+    alpha = np.zeros((h, w), np.uint8)
+    p0, p1 = (np.round(ends * 16).astype(np.int32))                    # sub-pixel precision
+    cv2.line(alpha, tuple(p0), tuple(p1), 255, thickness_px, cv2.LINE_AA, shift=4)
+    a = (alpha.astype(np.float32) / 255.0) * (1.0 - occluder)          # occluded by players
+    ys, xs = np.nonzero(a)
+    if len(ys) == 0:
+        return
+    y0, y1, x0, x1 = ys.min(), ys.max() + 1, xs.min(), xs.max() + 1
+    roi = frame[y0:y1, x0:x1].astype(np.float32)
+    aa = a[y0:y1, x0:x1, None]
+    frame[y0:y1, x0:x1] = np.clip(roi * (1 - aa) + BLACK * aa, 0, 255).astype(np.uint8)
 
 
 def build_occluder(dets: list[Detection], shape, thresh: float, feather: float) -> np.ndarray:
@@ -673,8 +741,9 @@ def main():
     ap.add_argument("--start-deg", type=float, default=90.0,
                     help="where the red arc starts, in degrees clockwise from 12 o'clock "
                          "(90 = 3 o'clock, the default; 0 = 12 o'clock)")
-    ap.add_argument("--opacity", type=float, default=0.92)
-    ap.add_argument("--shade", type=float, default=0.85, help="how much court lighting/shadows affect the paint")
+    ap.add_argument("--opacity", type=float, default=1.0, help="ring opacity (1 = solid)")
+    ap.add_argument("--shade", type=float, default=0.0,
+                    help="0 = exact colours (default); up to 1 = darken the ring under shadows")
     ap.add_argument("--smooth", type=float, default=0.55, help="EMA factor for foot position (1 = no smoothing)")
     ap.add_argument("--hold", type=int, default=8, help="frames to keep a donut when the player is lost")
     ap.add_argument("--scene-check", type=float, default=0.5,
@@ -683,7 +752,11 @@ def main():
     ap.add_argument("--start", type=int, default=0, help="first frame to process")
     ap.add_argument("--max-frames", type=int, default=0, help="0 = whole video")
     ap.add_argument("--debug", action="store_true", help="draw masks, body axis and ground points")
+    ap.add_argument("--test-line", action="store_true",
+                    help="test overlay: thin black line across each donut from 12 to 6 o'clock")
     ap.add_argument("--device", default="cuda")
+    ap.add_argument("--bf16-weights", action="store_true",
+                    help="store SAM 3 weights in bfloat16: about half the GPU memory, for GPUs under ~8 GB")
     ap.add_argument("--cache-dir", help="where to keep SAM 3 results "
                     "(default: '<video name>.sam3cache' next to the video)")
     ap.add_argument("--no-cache", action="store_true", help="don't read or write the SAM 3 cache")
@@ -747,7 +820,8 @@ def main():
             if dets is None:
                 if segmenter is None:
                     progress.set_stage("Loading SAM 3")
-                    segmenter = Sam3PersonSegmenter(prompt=args.prompt, device=args.device)
+                    segmenter = Sam3PersonSegmenter(prompt=args.prompt, device=args.device,
+                                                    bf16_weights=args.bf16_weights)
                     progress.write("SAM 3 loaded.")
                 # the first call is slower (CUDA warm-up), so label it
                 progress.set_stage("SAM 3 warm-up" if progress.n_sam == 0 else "SAM 3")
@@ -770,6 +844,8 @@ def main():
             for side, val in (("far", v_far), ("near", v_near)):
                 if tracks[side].pos is not None:
                     render_donut(out, occ, H, tracks[side].pos, val, style)
+                    if args.test_line:
+                        draw_test_line(out, occ, H, tracks[side].pos, style)
 
             if args.debug:
                 for d in dets:
