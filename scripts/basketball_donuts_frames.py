@@ -389,16 +389,16 @@ class DonutStyle:
     ring_w: float = 0.28      # metres (white/red band)
     outline: float = 0.045    # metres (black outline, each side)
     start_deg: float = 90.0   # where the red arc starts: 0 = 12 o'clock (far baseline), 90 = 3 o'clock
-    opacity: float = 1.0      # 1 = solid, no court showing through
+    opacity: float = 0.75      # 1 = solid, no court showing through
     shade: float = 0.0        # 0 = exact flat colours (default), 1 = follow court lighting/shadows
     soften: float = 0.6       # px gaussian sigma to match footage softness
     ss: int = 4               # supersampling factor
     n_pts: int = 256
 
 
-WHITE = np.array([255, 255, 255], np.float32)  # #FFFFFF
+WHITE = np.array([230, 230, 230], np.float32)  # #E6E6E6
 RED = np.array([56, 7, 233], np.float32)       # #E90738 (OpenCV stores BGR)
-BLACK = np.array([0, 0, 0], np.float32)        # #000000
+BLACK = np.array([60, 60, 60], np.float32)        # #3C3C3C
 
 
 def _circle_pts(center: np.ndarray, r: float, n: int) -> np.ndarray:
