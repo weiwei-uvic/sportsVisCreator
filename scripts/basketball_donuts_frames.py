@@ -41,6 +41,21 @@ Usage
     python basketball_donuts_frames.py game.mp4 out.mp4 --start 1500 --max-frames 300 \
         --court-preset left-half --court "x,y;x,y;x,y;x,y" --targets 4 9 --values 0.25 0.6
 
+Changing targets over time
+--------------------------
+--targets-csv file.csv with columns frame,id1,id2. Each row sets the two
+target IDs from that frame (absolute video frame number) until the next row;
+an empty cell means no ring in that slot:
+
+    frame,id1,id2
+    1500,4,9
+    1620,4,7
+    1700,,7
+
+Ring colours/values belong to the slot: p1 of --values/--values-csv is used
+for id1, p2 for id2. When a slot switches player, its ring jumps straight to
+the new player. Get the IDs from the preview or basketball_ids_video.py.
+
 Court calibration
 -----------------
 Coordinates are in metres. Origin is the far-left court corner as seen on
@@ -814,6 +829,43 @@ def load_values_csv(path):
     return rows
 
 
+def load_targets_csv(path: str) -> list[tuple[int, tuple[int | None, int | None]]]:
+    """
+    CSV with columns frame,id1,id2. Each row sets the two target IDs from that
+    frame (absolute video frame number) until the next row. An empty cell,
+    '-' or 'none' means no ring in that slot.
+    """
+    def cell(v):
+        v = (v or "").strip().lower()
+        return None if v in ("", "-", "none", "null") else int(float(v))
+
+    rows = []
+    with open(path, newline="") as f:
+        reader = csv.DictReader(f)
+        need = {"frame", "id1", "id2"}
+        if not reader.fieldnames or not need <= {c.strip() for c in reader.fieldnames}:
+            sys.exit(f"{path}: needs the columns frame,id1,id2 (found {reader.fieldnames})")
+        for r in reader:
+            r = {k.strip(): v for k, v in r.items() if k}
+            if not (r.get("frame") or "").strip():
+                continue
+            rows.append((int(float(r["frame"])), (cell(r["id1"]), cell(r["id2"]))))
+    if not rows:
+        sys.exit(f"{path}: no rows")
+    rows.sort(key=lambda x: x[0])
+    return rows
+
+
+def targets_at(idx: int, rows, default):
+    """IDs of the last row at or before frame idx (default before the first row)."""
+    cur = default
+    for frame, ids in rows:
+        if frame > idx:
+            break
+        cur = ids
+    return cur
+
+
 def values_at(idx, table, default):
     if not table:
         return default
@@ -1038,6 +1090,9 @@ def main():
     ap.add_argument("input")
     ap.add_argument("output")
     ap.add_argument("--targets", type=int, nargs=2, metavar=("ID1", "ID2"))
+    ap.add_argument("--targets-csv",
+                    help="CSV with columns frame,id1,id2: which two IDs get rings from each frame on "
+                         "(empty cell = no ring). --targets, if given, applies before the first row")
     ap.add_argument("--pick", action="store_true", help="click the two players instead of giving --targets")
     ap.add_argument("--select-frame", type=int, default=0, help="clip frame for the ID preview / picker")
     ap.add_argument("--values", type=float, nargs=2, default=[0.25, 0.25], metavar=("V1", "V2"))
@@ -1168,7 +1223,20 @@ def main():
     _, sel_frame = cap.read()
     sel_dets, sel_refs = load_people(start + sel)
     sel_players = tracked(sel, sel_dets)
-    if args.pick:
+    target_rows = load_targets_csv(args.targets_csv) if args.targets_csv else None
+    if target_rows:
+        targets = list(args.targets) if args.targets else [None, None]
+        all_ids = {tid for frame_ids in ids_per_frame for tid in frame_ids.values()}
+        csv_ids = {t for _, ids in target_rows for t in ids if t is not None}
+        unknown = sorted(csv_ids - all_ids)
+        if unknown:
+            print(f"Warning: IDs {unknown} in {args.targets_csv} are never tracked in this clip "
+                  "(check them in the ID preview / basketball_ids_video.py).")
+        for frame, (a, b) in target_rows:
+            if a is not None and a == b:
+                print(f"Warning: row frame={frame} uses ID {a} in both slots.")
+        print(f"Targets from {args.targets_csv}: {len(target_rows)} rows")
+    elif args.pick:
         targets = pick_targets(sel_frame, sel_players)
         print(f"Targets: {targets[0]} {targets[1]}  (next time: --targets {targets[0]} {targets[1]})")
     elif args.targets:
@@ -1187,7 +1255,11 @@ def main():
     style = DonutStyle(outer_r=args.radius, ring_w=args.ring_width, outline=args.outline,
                        start_deg=args.start_deg, opacity=args.opacity, shade=args.shade)
     table = load_values_csv(args.values_csv) if args.values_csv else None
-    followers = [TargetFollower(t, args.reacquire_m, newborn_frames=int(fps)) for t in targets]
+    def make_follower(tid):
+        return None if tid is None else TargetFollower(tid, args.reacquire_m, newborn_frames=int(fps))
+
+    requested = list(targets)                       # ID each slot was asked to follow
+    followers = [make_follower(t) for t in requested]
     first_seen: dict[int, int] = {}
     writer = cv2.VideoWriter(args.output, cv2.VideoWriter_fourcc(*"mp4v"), fps, (w, h))
     cap.set(cv2.CAP_PROP_POS_FRAMES, start)
@@ -1203,8 +1275,16 @@ def main():
         by_id = {p.obj_id: p for p in players}
         occ = build_occluder(dets + refs, frame.shape, args.occluder_thresh, feather=0.8)
         vals = values_at(idx, table, tuple(args.values))
-        taken = {f.obj_id for f in followers}
+        if target_rows:
+            want = targets_at(idx, target_rows, tuple(targets))
+            for k in range(2):
+                if want[k] != requested[k]:         # slot switches player: start fresh, no glide
+                    requested[k] = want[k]
+                    followers[k] = make_follower(want[k])
+        taken = {f.obj_id for f in followers if f is not None}
         for f in followers:
+            if f is None:
+                continue
             d = f.find(players, by_id, first_seen, idx, H_inv, taken)
             pos = None
             if d is not None:
@@ -1214,13 +1294,11 @@ def main():
                     f.last_seen_pos = pos
             f.track.update(pos, args.smooth, args.hold)
         out = frame.copy()
-        order = sorted(range(2), key=lambda k: -1e9 if followers[k].track.pos is None
-                       else followers[k].track.pos[1])
-        for k in order:
-            if followers[k].track.pos is not None:
-                render_donut(out, occ, H, followers[k].track.pos, vals[k], style)
+        active = [k for k in range(2) if followers[k] is not None and followers[k].track.pos is not None]
+        for k in sorted(active, key=lambda k: followers[k].track.pos[1]):   # far rings first
+            render_donut(out, occ, H, followers[k].track.pos, vals[k], style)
         if args.debug:
-            out = draw_referees(id_preview(out, players, highlight={f.obj_id for f in followers}), refs)
+            out = draw_referees(id_preview(out, players, highlight=taken), refs)
             draw_court(out, H, court)
         writer.write(out)
     cap.release()
