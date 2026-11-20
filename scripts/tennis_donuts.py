@@ -42,6 +42,9 @@ Usage
     # per-frame values from a CSV with columns frame,near,far:
     python tennis_donuts.py match.mp4 out.mp4 --values-csv values.csv
 
+    # donuts only, on a white background (no match footage):
+    python tennis_donuts.py match.mp4 out.mp4 --values 0.25 0.7 --donuts-only
+
 --values takes NEAR player first, then FAR player.
 
 SAM 3 cache
@@ -358,9 +361,9 @@ class DonutStyle:
     ss: int = 4               # supersampling factor
     n_pts: int = 256
 
-
-WHITE = np.array([230, 230, 230], np.float32)  # #E6E6E6
-RED = np.array([56, 7, 233], np.float32)       # #E90738 (OpenCV stores BGR)
+# The color values of WHITE and RED are from Lijie's paper 
+WHITE = np.array([193, 193, 195], np.float32)  # #C3C1C1 (OpenCV stores BGR)
+RED = np.array([56, 7, 233], np.float32)       # #E90738
 BLACK = np.array([60, 60, 60], np.float32)        # #3C3C3C
 
 
@@ -754,6 +757,8 @@ def main():
     ap.add_argument("--debug", action="store_true", help="draw masks, body axis and ground points")
     ap.add_argument("--test-line", action="store_true",
                     help="test overlay: thin black line across each donut from 12 to 6 o'clock")
+    ap.add_argument("--donuts-only", action="store_true",
+                    help="output only the donuts on a white background (no match footage, no occlusion)")
     ap.add_argument("--device", default="cuda")
     ap.add_argument("--bf16-weights", action="store_true",
                     help="store SAM 3 weights in bfloat16: about half the GPU memory, for GPUs under ~8 GB")
@@ -811,7 +816,7 @@ def main():
     while True:
         same_shot = (args.scene_check <= 0 or
                      cv2.compareHist(ref_sig, scene_signature(frame), cv2.HISTCMP_CORREL) >= args.scene_check)
-        out = frame.copy()
+        out = np.full_like(frame, 255) if args.donuts_only else frame.copy()
 
         if same_shot:
             progress.set_stage("Cache")
@@ -837,7 +842,8 @@ def main():
             for side in ("near", "far"):
                 tracks[side].update(picked[side], args.smooth, args.hold)
 
-            occ = build_occluder(dets, frame.shape, args.occluder_thresh, feather=0.8)
+            occ = (np.zeros(frame.shape[:2], np.float32) if args.donuts_only
+                   else build_occluder(dets, frame.shape, args.occluder_thresh, feather=0.8))
             v_near, v_far = values_at(idx, table, tuple(args.values))
 
             # draw far donut first, then near (near one is "closer" to camera)

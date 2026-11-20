@@ -28,47 +28,193 @@ clip_7: 659,273;1311,273;1648,896;326,893
 clip_8: 664,268;1297,266;1624,872;338,870
 
 
-*Run codes in batch*
+### Donuts: Run codes in batch - no bg
+*Clip 1*
+python scripts/tennis_donuts.py tennis/clip_1.mp4 tennis/rendered_clips/NoBG/clip_1_p1.mp4 --outline 0  --court "549,247;1245,243;1603,899;190,918" --values 0.1509889778  0.8490110222 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_1.mp4 tennis/rendered_clips/NoBG/clip_1_p2.mp4 --outline 0  --court "549,247;1245,243;1603,899;190,918" --values 0.1828476521  0.700739846 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_1.mp4 tennis/rendered_clips/NoBG/clip_1_p3.mp4 --outline 0  --court "549,247;1245,243;1603,899;190,918" --values 0.2215008304  0.578438774 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_1.mp4 tennis/rendered_clips/NoBG/clip_1_p4.mp4 --outline 0  --court "549,247;1245,243;1603,899;190,918" --values 0.2215008304  0.4774271478 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_1.mp4 tennis/rendered_clips/NoBG/clip_1_p5.mp4 --outline 0  --court "549,247;1245,243;1603,899;190,918" --values 0.2684584025  0.4774271478 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_1.mp4 tennis/rendered_clips/NoBG/clip_1_p6.mp4 --outline 0  --court "549,247;1245,243;1603,899;190,918" --values 0.2684584025  0.3940812321 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_1.mp4 tennis/rendered_clips/NoBG/clip_1_p7.mp4 --outline 0  --court "549,247;1245,243;1603,899;190,918" --values 0.3252302582  0.3940812321 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_1.mp4 tennis/rendered_clips/NoBG/clip_1_p8.mp4 --outline 0  --court "549,247;1245,243;1603,899;190,918" --values 0  1  --donuts-only
+
+*Clip 2*
+python scripts/tennis_donuts.py tennis/clip_2.mp4 tennis/rendered_clips/NoBG/clip_2_p1.mp4 --outline 0  --court "570,242;1265,238;1625,897;210,910" --values 0.1509889778  0.8490110222 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_2.mp4 tennis/rendered_clips/NoBG/clip_2_p2.mp4 --outline 0  --court "570,242;1265,238;1625,897;210,910" --values 0.1828476521  0.700739846 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_2.mp4 tennis/rendered_clips/NoBG/clip_2_p3.mp4 --outline 0  --court "570,242;1265,238;1625,897;210,910" --values 0.2215008304  0.578438774 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_2.mp4 tennis/rendered_clips/NoBG/clip_2_p4.mp4 --outline 0  --court "570,242;1265,238;1625,897;210,910" --values 0.2215008304  0.4774271478 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_2.mp4 tennis/rendered_clips/NoBG/clip_2_p5.mp4 --outline 0  --court "570,242;1265,238;1625,897;210,910" --values 0.2684584025  0.4774271478 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_2.mp4 tennis/rendered_clips/NoBG/clip_2_p6.mp4 --outline 0  --court "570,242;1265,238;1625,897;210,910" --values 0.2684584025  0.3940812321 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_2.mp4 tennis/rendered_clips/NoBG/clip_2_p7.mp4 --outline 0  --court "570,242;1265,238;1625,897;210,910" --values 0.3252302582  0.3940812321 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_2.mp4 tennis/rendered_clips/NoBG/clip_2_p8.mp4 --outline 0  --court "570,242;1265,238;1625,897;210,910" --values 0  1  --donuts-only
+
+*Clip 3*
+python scripts/tennis_donuts.py tennis/clip_3.mp4 tennis/rendered_clips/NoBG/clip_3_p1.mp4 --outline 0  --court "683,277;1273,276;1573,836;384,835" --values 0.1509889778  0.8490110222 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_3.mp4 tennis/rendered_clips/NoBG/clip_3_p2.mp4 --outline 0  --court "683,277;1273,276;1573,836;384,835" --values 0.1828476521  0.700739846 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_3.mp4 tennis/rendered_clips/NoBG/clip_3_p3.mp4 --outline 0  --court "683,277;1273,276;1573,836;384,835" --values 0.2215008304  0.578438774 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_3.mp4 tennis/rendered_clips/NoBG/clip_3_p4.mp4 --outline 0  --court "683,277;1273,276;1573,836;384,835" --values 0.2215008304  0.4774271478 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_3.mp4 tennis/rendered_clips/NoBG/clip_3_p5.mp4 --outline 0  --court "683,277;1273,276;1573,836;384,835" --values 0.2684584025  0.4774271478 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_3.mp4 tennis/rendered_clips/NoBG/clip_3_p6.mp4 --outline 0  --court "683,277;1273,276;1573,836;384,835" --values 0.2684584025  0.3940812321 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_3.mp4 tennis/rendered_clips/NoBG/clip_3_p7.mp4 --outline 0  --court "683,277;1273,276;1573,836;384,835" --values 0.3252302582  0.3940812321 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_3.mp4 tennis/rendered_clips/NoBG/clip_3_p8.mp4 --outline 0  --court "683,277;1273,276;1573,836;384,835" --values 0  1  --donuts-only
+
+*Clip 4*
+python scripts/tennis_donuts.py tennis/clip_4.mp4 tennis/rendered_clips/NoBG/clip_4_p1.mp4 --outline 0  --court "632,277;1261,275;1586,874;310,879" --values 0.1509889778  0.8490110222 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_4.mp4 tennis/rendered_clips/NoBG/clip_4_p2.mp4 --outline 0  --court "632,277;1261,275;1586,874;310,879" --values 0.1828476521  0.700739846 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_4.mp4 tennis/rendered_clips/NoBG/clip_4_p3.mp4 --outline 0  --court "632,277;1261,275;1586,874;310,879" --values 0.2215008304  0.578438774 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_4.mp4 tennis/rendered_clips/NoBG/clip_4_p4.mp4 --outline 0  --court "632,277;1261,275;1586,874;310,879" --values 0.2215008304  0.4774271478 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_4.mp4 tennis/rendered_clips/NoBG/clip_4_p5.mp4 --outline 0  --court "632,277;1261,275;1586,874;310,879" --values 0.2684584025  0.4774271478 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_4.mp4 tennis/rendered_clips/NoBG/clip_4_p6.mp4 --outline 0  --court "632,277;1261,275;1586,874;310,879" --values 0.2684584025  0.3940812321 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_4.mp4 tennis/rendered_clips/NoBG/clip_4_p7.mp4 --outline 0  --court "632,277;1261,275;1586,874;310,879" --values 0.3252302582  0.3940812321 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_4.mp4 tennis/rendered_clips/NoBG/clip_4_p8.mp4 --outline 0  --court "632,277;1261,275;1586,874;310,879" --values 0  1  --donuts-only
 
 *Clip 5*
-python scripts/tennis_donuts.py tennis/clip_5.mp4 tennis/rendered_clips/clip_5_p1.mp4 --court "626,274;1260,270;1587,873;303,880" --values 0.1509889778  0.8490110222;
-python scripts/tennis_donuts.py tennis/clip_5.mp4 tennis/rendered_clips/clip_5_p2.mp4 --court "626,274;1260,270;1587,873;303,880" --values 0.1828476521  0.700739846;
-python scripts/tennis_donuts.py tennis/clip_5.mp4 tennis/rendered_clips/clip_5_p3.mp4 --court "626,274;1260,270;1587,873;303,880" --values 0.2215008304  0.578438774;
-python scripts/tennis_donuts.py tennis/clip_5.mp4 tennis/rendered_clips/clip_5_p4.mp4 --court "626,274;1260,270;1587,873;303,880" --values 0.2215008304  0.4774271478;
-python scripts/tennis_donuts.py tennis/clip_5.mp4 tennis/rendered_clips/clip_5_p5.mp4 --court "626,274;1260,270;1587,873;303,880" --values 0.2684584025  0.4774271478;
-python scripts/tennis_donuts.py tennis/clip_5.mp4 tennis/rendered_clips/clip_5_p6.mp4 --court "626,274;1260,270;1587,873;303,880" --values 0.2684584025  0.3940812321;
-python scripts/tennis_donuts.py tennis/clip_5.mp4 tennis/rendered_clips/clip_5_p7.mp4 --court "626,274;1260,270;1587,873;303,880" --values 0.3252302582  0.3940812321
-python scripts/tennis_donuts.py tennis/clip_5.mp4 tennis/rendered_clips/clip_5_p8.mp4 --court "626,274;1260,270;1587,873;303,880" --values 0  0.8490110222
+python scripts/tennis_donuts.py tennis/clip_5.mp4 tennis/rendered_clips/NoBG/clip_5_p1.mp4 --outline 0  --court "626,274;1260,270;1587,873;303,880" --values 0.1509889778  0.8490110222 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_5.mp4 tennis/rendered_clips/NoBG/clip_5_p2.mp4 --outline 0  --court "626,274;1260,270;1587,873;303,880" --values 0.1828476521  0.700739846 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_5.mp4 tennis/rendered_clips/NoBG/clip_5_p3.mp4 --outline 0  --court "626,274;1260,270;1587,873;303,880" --values 0.2215008304  0.578438774 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_5.mp4 tennis/rendered_clips/NoBG/clip_5_p4.mp4 --outline 0  --court "626,274;1260,270;1587,873;303,880" --values 0.2215008304  0.4774271478 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_5.mp4 tennis/rendered_clips/NoBG/clip_5_p5.mp4 --outline 0  --court "626,274;1260,270;1587,873;303,880" --values 0.2684584025  0.4774271478 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_5.mp4 tennis/rendered_clips/NoBG/clip_5_p6.mp4 --outline 0  --court "626,274;1260,270;1587,873;303,880" --values 0.2684584025  0.3940812321 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_5.mp4 tennis/rendered_clips/NoBG/clip_5_p7.mp4 --outline 0  --court "626,274;1260,270;1587,873;303,880" --values 0.3252302582  0.3940812321 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_5.mp4 tennis/rendered_clips/NoBG/clip_5_p8.mp4 --outline 0  --court "626,274;1260,270;1587,873;303,880" --values 0  1 --donuts-only
+
 
 *Clip 6*
-python scripts/tennis_donuts.py tennis/clip_6.mp4 tennis/rendered_clips/clip_6_p1.mp4 --court "637,262;1234,258;1538,825;335,832" --values 0.1509889778  0.8490110222;
-python scripts/tennis_donuts.py tennis/clip_6.mp4 tennis/rendered_clips/clip_6_p2.mp4 --court "637,262;1234,258;1538,825;335,832" --values 0.1828476521  0.700739846;
-python scripts/tennis_donuts.py tennis/clip_6.mp4 tennis/rendered_clips/clip_6_p3.mp4 --court "637,262;1234,258;1538,825;335,832" --values 0.2215008304  0.578438774;
-python scripts/tennis_donuts.py tennis/clip_6.mp4 tennis/rendered_clips/clip_6_p4.mp4 --court "637,262;1234,258;1538,825;335,832" --values 0.2215008304  0.4774271478;
-python scripts/tennis_donuts.py tennis/clip_6.mp4 tennis/rendered_clips/clip_6_p5.mp4 --court "637,262;1234,258;1538,825;335,832" --values 0.2684584025  0.4774271478;
-python scripts/tennis_donuts.py tennis/clip_6.mp4 tennis/rendered_clips/clip_6_p6.mp4 --court "637,262;1234,258;1538,825;335,832" --values 0.2684584025  0.3940812321;
-python scripts/tennis_donuts.py tennis/clip_6.mp4 tennis/rendered_clips/clip_6_p7.mp4 --court "637,262;1234,258;1538,825;335,832" --values 0.3252302582  0.3940812321
-python scripts/tennis_donuts.py tennis/clip_6.mp4 tennis/rendered_clips/clip_6_p8.mp4 --court "637,262;1234,258;1538,825;335,832" --values 0  0.8490110222
+python scripts/tennis_donuts.py tennis/clip_6.mp4 tennis/rendered_clips/NoBG/clip_6_p1.mp4 --outline 0  --court "637,262;1234,258;1538,825;335,832" --values 0.1509889778  0.8490110222 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_6.mp4 tennis/rendered_clips/NoBG/clip_6_p2.mp4 --outline 0  --court "637,262;1234,258;1538,825;335,832" --values 0.1828476521  0.700739846 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_6.mp4 tennis/rendered_clips/NoBG/clip_6_p3.mp4 --outline 0  --court "637,262;1234,258;1538,825;335,832" --values 0.2215008304  0.578438774 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_6.mp4 tennis/rendered_clips/NoBG/clip_6_p4.mp4 --outline 0  --court "637,262;1234,258;1538,825;335,832" --values 0.2215008304  0.4774271478 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_6.mp4 tennis/rendered_clips/NoBG/clip_6_p5.mp4 --outline 0  --court "637,262;1234,258;1538,825;335,832" --values 0.2684584025  0.4774271478 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_6.mp4 tennis/rendered_clips/NoBG/clip_6_p6.mp4 --outline 0  --court "637,262;1234,258;1538,825;335,832" --values 0.2684584025  0.3940812321 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_6.mp4 tennis/rendered_clips/NoBG/clip_6_p7.mp4 --outline 0  --court "637,262;1234,258;1538,825;335,832" --values 0.3252302582  0.3940812321 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_6.mp4 tennis/rendered_clips/NoBG/clip_6_p8.mp4 --outline 0  --court "637,262;1234,258;1538,825;335,832" --values 0  1 --donuts-only
 
 *Clip 7*
-python scripts/tennis_donuts.py tennis/clip_7.mp4 tennis/rendered_clips/clip_7_p1.mp4 --court "659,273;1311,273;1648,896;326,893" --values 0.1509889778  0.8490110222;
-python scripts/tennis_donuts.py tennis/clip_7.mp4 tennis/rendered_clips/clip_7_p2.mp4 --court "659,273;1311,273;1648,896;326,893" --values 0.1828476521  0.700739846;
-python scripts/tennis_donuts.py tennis/clip_7.mp4 tennis/rendered_clips/clip_7_p3.mp4 --court "659,273;1311,273;1648,896;326,893" --values 0.2215008304  0.578438774;
-python scripts/tennis_donuts.py tennis/clip_7.mp4 tennis/rendered_clips/clip_7_p4.mp4 --court "659,273;1311,273;1648,896;326,893" --values 0.2215008304  0.4774271478;
-python scripts/tennis_donuts.py tennis/clip_7.mp4 tennis/rendered_clips/clip_7_p5.mp4 --court "659,273;1311,273;1648,896;326,893" --values 0.2684584025  0.4774271478;
-python scripts/tennis_donuts.py tennis/clip_7.mp4 tennis/rendered_clips/clip_7_p6.mp4 --court "659,273;1311,273;1648,896;326,893" --values 0.2684584025  0.3940812321;
-python scripts/tennis_donuts.py tennis/clip_7.mp4 tennis/rendered_clips/clip_7_p7.mp4 --court "659,273;1311,273;1648,896;326,893" --values 0.3252302582  0.3940812321
-python scripts/tennis_donuts.py tennis/clip_7.mp4 tennis/rendered_clips/clip_7_p8.mp4 --court "659,273;1311,273;1648,896;326,893" --values 0  0.8490110222
+python scripts/tennis_donuts.py tennis/clip_7.mp4 tennis/rendered_clips/NoBG/clip_7_p1.mp4 --outline 0  --court "659,273;1311,273;1648,896;326,893" --values 0.1509889778  0.8490110222 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_7.mp4 tennis/rendered_clips/NoBG/clip_7_p2.mp4 --outline 0  --court "659,273;1311,273;1648,896;326,893" --values 0.1828476521  0.700739846 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_7.mp4 tennis/rendered_clips/NoBG/clip_7_p3.mp4 --outline 0  --court "659,273;1311,273;1648,896;326,893" --values 0.2215008304  0.578438774 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_7.mp4 tennis/rendered_clips/NoBG/clip_7_p4.mp4 --outline 0  --court "659,273;1311,273;1648,896;326,893" --values 0.2215008304  0.4774271478 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_7.mp4 tennis/rendered_clips/NoBG/clip_7_p5.mp4 --outline 0  --court "659,273;1311,273;1648,896;326,893" --values 0.2684584025  0.4774271478 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_7.mp4 tennis/rendered_clips/NoBG/clip_7_p6.mp4 --outline 0  --court "659,273;1311,273;1648,896;326,893" --values 0.2684584025  0.3940812321 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_7.mp4 tennis/rendered_clips/NoBG/clip_7_p7.mp4 --outline 0  --court "659,273;1311,273;1648,896;326,893" --values 0.3252302582  0.3940812321 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_7.mp4 tennis/rendered_clips/NoBG/clip_7_p8.mp4 --outline 0  --court "659,273;1311,273;1648,896;326,893" --values 0  1 --donuts-only
 
 *Clip 8*
-python scripts/tennis_donuts.py tennis/clip_8.mp4 tennis/rendered_clips/clip_8_p1.mp4 --court "664,268;1297,266;1624,872;338,870" --values 0.1509889778  0.8490110222;
-python scripts/tennis_donuts.py tennis/clip_8.mp4 tennis/rendered_clips/clip_8_p2.mp4 --court "664,268;1297,266;1624,872;338,870" --values 0.1828476521  0.700739846;
-python scripts/tennis_donuts.py tennis/clip_8.mp4 tennis/rendered_clips/clip_8_p3.mp4 --court "664,268;1297,266;1624,872;338,870" --values 0.2215008304  0.578438774;
-python scripts/tennis_donuts.py tennis/clip_8.mp4 tennis/rendered_clips/clip_8_p4.mp4 --court "664,268;1297,266;1624,872;338,870" --values 0.2215008304  0.4774271478;
-python scripts/tennis_donuts.py tennis/clip_8.mp4 tennis/rendered_clips/clip_8_p5.mp4 --court "664,268;1297,266;1624,872;338,870" --values 0.2684584025  0.4774271478;
-python scripts/tennis_donuts.py tennis/clip_8.mp4 tennis/rendered_clips/clip_8_p6.mp4 --court "664,268;1297,266;1624,872;338,870" --values 0.2684584025  0.3940812321;
-python scripts/tennis_donuts.py tennis/clip_8.mp4 tennis/rendered_clips/clip_8_p7.mp4 --court "664,268;1297,266;1624,872;338,870" --values 0.3252302582  0.3940812321
-python scripts/tennis_donuts.py tennis/clip_8.mp4 tennis/rendered_clips/clip_8_p8.mp4 --court "664,268;1297,266;1624,872;338,870" --values 0  0.8490110222
+python scripts/tennis_donuts.py tennis/clip_8.mp4 tennis/rendered_clips/NoBG/clip_8_p1.mp4 --outline 0  --court "664,268;1297,266;1624,872;338,870" --values 0.1509889778  0.8490110222 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_8.mp4 tennis/rendered_clips/NoBG/clip_8_p2.mp4 --outline 0  --court "664,268;1297,266;1624,872;338,870" --values 0.1828476521  0.700739846 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_8.mp4 tennis/rendered_clips/NoBG/clip_8_p3.mp4 --outline 0  --court "664,268;1297,266;1624,872;338,870" --values 0.2215008304  0.578438774 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_8.mp4 tennis/rendered_clips/NoBG/clip_8_p4.mp4 --outline 0  --court "664,268;1297,266;1624,872;338,870" --values 0.2215008304  0.4774271478 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_8.mp4 tennis/rendered_clips/NoBG/clip_8_p5.mp4 --outline 0  --court "664,268;1297,266;1624,872;338,870" --values 0.2684584025  0.4774271478 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_8.mp4 tennis/rendered_clips/NoBG/clip_8_p6.mp4 --outline 0  --court "664,268;1297,266;1624,872;338,870" --values 0.2684584025  0.3940812321 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_8.mp4 tennis/rendered_clips/NoBG/clip_8_p7.mp4 --outline 0  --court "664,268;1297,266;1624,872;338,870" --values 0.3252302582  0.3940812321 --donuts-only;
+python scripts/tennis_donuts.py tennis/clip_8.mp4 tennis/rendered_clips/NoBG/clip_8_p8.mp4 --outline 0  --court "664,268;1297,266;1624,872;338,870" --values 0  1 --donuts-only
+### Donuts: Run codes in batch - with bg 
+
+*Clip 1*
+python scripts/tennis_donuts.py tennis/clip_1.mp4 tennis/rendered_clips/clip_1_p1.mp4 --outline 0  --court "549,247;1245,243;1603,899;190,918" --values 0.1509889778  0.8490110222;
+python scripts/tennis_donuts.py tennis/clip_1.mp4 tennis/rendered_clips/clip_1_p2.mp4 --outline 0  --court "549,247;1245,243;1603,899;190,918" --values 0.1828476521  0.700739846;
+python scripts/tennis_donuts.py tennis/clip_1.mp4 tennis/rendered_clips/clip_1_p3.mp4 --outline 0  --court "549,247;1245,243;1603,899;190,918" --values 0.2215008304  0.578438774;
+python scripts/tennis_donuts.py tennis/clip_1.mp4 tennis/rendered_clips/clip_1_p4.mp4 --outline 0  --court "549,247;1245,243;1603,899;190,918" --values 0.2215008304  0.4774271478;
+python scripts/tennis_donuts.py tennis/clip_1.mp4 tennis/rendered_clips/clip_1_p5.mp4 --outline 0  --court "549,247;1245,243;1603,899;190,918" --values 0.2684584025  0.4774271478;
+python scripts/tennis_donuts.py tennis/clip_1.mp4 tennis/rendered_clips/clip_1_p6.mp4 --outline 0  --court "549,247;1245,243;1603,899;190,918" --values 0.2684584025  0.3940812321;
+python scripts/tennis_donuts.py tennis/clip_1.mp4 tennis/rendered_clips/clip_1_p7.mp4 --outline 0  --court "549,247;1245,243;1603,899;190,918" --values 0.3252302582  0.3940812321;
+python scripts/tennis_donuts.py tennis/clip_1.mp4 tennis/rendered_clips/clip_1_p8.mp4 --outline 0  --court "549,247;1245,243;1603,899;190,918" --values 0  1 
+
+*Clip 2*
+python scripts/tennis_donuts.py tennis/clip_2.mp4 tennis/rendered_clips/clip_2_p1.mp4 --outline 0  --court "570,242;1265,238;1625,897;210,910" --values 0.1509889778  0.8490110222;
+python scripts/tennis_donuts.py tennis/clip_2.mp4 tennis/rendered_clips/clip_2_p2.mp4 --outline 0  --court "570,242;1265,238;1625,897;210,910" --values 0.1828476521  0.700739846;
+python scripts/tennis_donuts.py tennis/clip_2.mp4 tennis/rendered_clips/clip_2_p3.mp4 --outline 0  --court "570,242;1265,238;1625,897;210,910" --values 0.2215008304  0.578438774;
+python scripts/tennis_donuts.py tennis/clip_2.mp4 tennis/rendered_clips/clip_2_p4.mp4 --outline 0  --court "570,242;1265,238;1625,897;210,910" --values 0.2215008304  0.4774271478;
+python scripts/tennis_donuts.py tennis/clip_2.mp4 tennis/rendered_clips/clip_2_p5.mp4 --outline 0  --court "570,242;1265,238;1625,897;210,910" --values 0.2684584025  0.4774271478;
+python scripts/tennis_donuts.py tennis/clip_2.mp4 tennis/rendered_clips/clip_2_p6.mp4 --outline 0  --court "570,242;1265,238;1625,897;210,910" --values 0.2684584025  0.3940812321;
+python scripts/tennis_donuts.py tennis/clip_2.mp4 tennis/rendered_clips/clip_2_p7.mp4 --outline 0  --court "570,242;1265,238;1625,897;210,910" --values 0.3252302582  0.3940812321;
+python scripts/tennis_donuts.py tennis/clip_2.mp4 tennis/rendered_clips/clip_2_p8.mp4 --outline 0  --court "570,242;1265,238;1625,897;210,910" --values 0  1 
+
+*Clip 3*
+python scripts/tennis_donuts.py tennis/clip_3.mp4 tennis/rendered_clips/clip_3_p1.mp4 --outline 0  --court "683,277;1273,276;1573,836;384,835" --values 0.1509889778  0.8490110222 ;
+python scripts/tennis_donuts.py tennis/clip_3.mp4 tennis/rendered_clips/clip_3_p2.mp4 --outline 0  --court "683,277;1273,276;1573,836;384,835" --values 0.1828476521  0.700739846 ;
+python scripts/tennis_donuts.py tennis/clip_3.mp4 tennis/rendered_clips/clip_3_p3.mp4 --outline 0  --court "683,277;1273,276;1573,836;384,835" --values 0.2215008304  0.578438774 ;
+python scripts/tennis_donuts.py tennis/clip_3.mp4 tennis/rendered_clips/clip_3_p4.mp4 --outline 0  --court "683,277;1273,276;1573,836;384,835" --values 0.2215008304  0.4774271478 ;
+python scripts/tennis_donuts.py tennis/clip_3.mp4 tennis/rendered_clips/clip_3_p5.mp4 --outline 0  --court "683,277;1273,276;1573,836;384,835" --values 0.2684584025  0.4774271478 ;
+python scripts/tennis_donuts.py tennis/clip_3.mp4 tennis/rendered_clips/clip_3_p6.mp4 --outline 0  --court "683,277;1273,276;1573,836;384,835" --values 0.2684584025  0.3940812321 ;
+python scripts/tennis_donuts.py tennis/clip_3.mp4 tennis/rendered_clips/clip_3_p7.mp4 --outline 0  --court "683,277;1273,276;1573,836;384,835" --values 0.3252302582  0.3940812321 ;
+python scripts/tennis_donuts.py tennis/clip_3.mp4 tennis/rendered_clips/clip_3_p8.mp4 --outline 0  --court "683,277;1273,276;1573,836;384,835" --values 0  1  
+
+*Clip 4*
+python scripts/tennis_donuts.py tennis/clip_4.mp4 tennis/rendered_clips/clip_4_p1.mp4 --outline 0  --court "632,277;1261,275;1586,874;310,879" --values 0.1509889778  0.8490110222 ;
+python scripts/tennis_donuts.py tennis/clip_4.mp4 tennis/rendered_clips/clip_4_p2.mp4 --outline 0  --court "632,277;1261,275;1586,874;310,879" --values 0.1828476521  0.700739846 ;
+python scripts/tennis_donuts.py tennis/clip_4.mp4 tennis/rendered_clips/clip_4_p3.mp4 --outline 0  --court "632,277;1261,275;1586,874;310,879" --values 0.2215008304  0.578438774 ;
+python scripts/tennis_donuts.py tennis/clip_4.mp4 tennis/rendered_clips/clip_4_p4.mp4 --outline 0  --court "632,277;1261,275;1586,874;310,879" --values 0.2215008304  0.4774271478 ;
+python scripts/tennis_donuts.py tennis/clip_4.mp4 tennis/rendered_clips/clip_4_p5.mp4 --outline 0  --court "632,277;1261,275;1586,874;310,879" --values 0.2684584025  0.4774271478 ;
+python scripts/tennis_donuts.py tennis/clip_4.mp4 tennis/rendered_clips/clip_4_p6.mp4 --outline 0  --court "632,277;1261,275;1586,874;310,879" --values 0.2684584025  0.3940812321 ;
+python scripts/tennis_donuts.py tennis/clip_4.mp4 tennis/rendered_clips/clip_4_p7.mp4 --outline 0  --court "632,277;1261,275;1586,874;310,879" --values 0.3252302582  0.3940812321 ;
+python scripts/tennis_donuts.py tennis/clip_4.mp4 tennis/rendered_clips/clip_4_p8.mp4 --outline 0  --court "632,277;1261,275;1586,874;310,879" --values 0  1  
+
+*Clip 5*
+python scripts/tennis_donuts.py tennis/clip_5.mp4 tennis/rendered_clips/clip_5_p1.mp4 --outline 0  --court "626,274;1260,270;1587,873;303,880" --values 0.1509889778  0.8490110222;
+python scripts/tennis_donuts.py tennis/clip_5.mp4 tennis/rendered_clips/clip_5_p2.mp4 --outline 0  --court "626,274;1260,270;1587,873;303,880" --values 0.1828476521  0.700739846;
+python scripts/tennis_donuts.py tennis/clip_5.mp4 tennis/rendered_clips/clip_5_p3.mp4 --outline 0  --court "626,274;1260,270;1587,873;303,880" --values 0.2215008304  0.578438774;
+python scripts/tennis_donuts.py tennis/clip_5.mp4 tennis/rendered_clips/clip_5_p4.mp4 --outline 0  --court "626,274;1260,270;1587,873;303,880" --values 0.2215008304  0.4774271478;
+python scripts/tennis_donuts.py tennis/clip_5.mp4 tennis/rendered_clips/clip_5_p5.mp4 --outline 0  --court "626,274;1260,270;1587,873;303,880" --values 0.2684584025  0.4774271478;
+python scripts/tennis_donuts.py tennis/clip_5.mp4 tennis/rendered_clips/clip_5_p6.mp4 --outline 0  --court "626,274;1260,270;1587,873;303,880" --values 0.2684584025  0.3940812321;
+python scripts/tennis_donuts.py tennis/clip_5.mp4 tennis/rendered_clips/clip_5_p7.mp4 --outline 0  --court "626,274;1260,270;1587,873;303,880" --values 0.3252302582  0.3940812321
+python scripts/tennis_donuts.py tennis/clip_5.mp4 tennis/rendered_clips/clip_5_p8.mp4 --outline 0  --court "626,274;1260,270;1587,873;303,880" --values 0  1
+
+*Clip 6*
+python scripts/tennis_donuts.py tennis/clip_6.mp4 tennis/rendered_clips/clip_6_p1.mp4 --outline 0  --court "637,262;1234,258;1538,825;335,832" --values 0.1509889778  0.8490110222;
+python scripts/tennis_donuts.py tennis/clip_6.mp4 tennis/rendered_clips/clip_6_p2.mp4 --outline 0  --court "637,262;1234,258;1538,825;335,832" --values 0.1828476521  0.700739846;
+python scripts/tennis_donuts.py tennis/clip_6.mp4 tennis/rendered_clips/clip_6_p3.mp4 --outline 0  --court "637,262;1234,258;1538,825;335,832" --values 0.2215008304  0.578438774;
+python scripts/tennis_donuts.py tennis/clip_6.mp4 tennis/rendered_clips/clip_6_p4.mp4 --outline 0  --court "637,262;1234,258;1538,825;335,832" --values 0.2215008304  0.4774271478;
+python scripts/tennis_donuts.py tennis/clip_6.mp4 tennis/rendered_clips/clip_6_p5.mp4 --outline 0  --court "637,262;1234,258;1538,825;335,832" --values 0.2684584025  0.4774271478;
+python scripts/tennis_donuts.py tennis/clip_6.mp4 tennis/rendered_clips/clip_6_p6.mp4 --outline 0  --court "637,262;1234,258;1538,825;335,832" --values 0.2684584025  0.3940812321;
+python scripts/tennis_donuts.py tennis/clip_6.mp4 tennis/rendered_clips/clip_6_p7.mp4 --outline 0  --court "637,262;1234,258;1538,825;335,832" --values 0.3252302582  0.3940812321;
+python scripts/tennis_donuts.py tennis/clip_6.mp4 tennis/rendered_clips/clip_6_p8.mp4 --outline 0  --court "637,262;1234,258;1538,825;335,832" --values 0  1
+
+*Clip 7*
+python scripts/tennis_donuts.py tennis/clip_7.mp4 tennis/rendered_clips/clip_7_p1.mp4 --outline 0  --court "659,273;1311,273;1648,896;326,893" --values 0.1509889778  0.8490110222;
+python scripts/tennis_donuts.py tennis/clip_7.mp4 tennis/rendered_clips/clip_7_p2.mp4 --outline 0  --court "659,273;1311,273;1648,896;326,893" --values 0.1828476521  0.700739846;
+python scripts/tennis_donuts.py tennis/clip_7.mp4 tennis/rendered_clips/clip_7_p3.mp4 --outline 0  --court "659,273;1311,273;1648,896;326,893" --values 0.2215008304  0.578438774;
+python scripts/tennis_donuts.py tennis/clip_7.mp4 tennis/rendered_clips/clip_7_p4.mp4 --outline 0  --court "659,273;1311,273;1648,896;326,893" --values 0.2215008304  0.4774271478;
+python scripts/tennis_donuts.py tennis/clip_7.mp4 tennis/rendered_clips/clip_7_p5.mp4 --outline 0  --court "659,273;1311,273;1648,896;326,893" --values 0.2684584025  0.4774271478;
+python scripts/tennis_donuts.py tennis/clip_7.mp4 tennis/rendered_clips/clip_7_p6.mp4 --outline 0  --court "659,273;1311,273;1648,896;326,893" --values 0.2684584025  0.3940812321;
+python scripts/tennis_donuts.py tennis/clip_7.mp4 tennis/rendered_clips/clip_7_p7.mp4 --outline 0  --court "659,273;1311,273;1648,896;326,893" --values 0.3252302582  0.3940812321;
+python scripts/tennis_donuts.py tennis/clip_7.mp4 tennis/rendered_clips/clip_7_p8.mp4 --outline 0  --court "659,273;1311,273;1648,896;326,893" --values 0  1
+
+*Clip 8*
+python scripts/tennis_donuts.py tennis/clip_8.mp4 tennis/rendered_clips/clip_8_p1.mp4 --outline 0  --court "664,268;1297,266;1624,872;338,870" --values 0.1509889778  0.8490110222;
+python scripts/tennis_donuts.py tennis/clip_8.mp4 tennis/rendered_clips/clip_8_p2.mp4 --outline 0  --court "664,268;1297,266;1624,872;338,870" --values 0.1828476521  0.700739846;
+python scripts/tennis_donuts.py tennis/clip_8.mp4 tennis/rendered_clips/clip_8_p3.mp4 --outline 0  --court "664,268;1297,266;1624,872;338,870" --values 0.2215008304  0.578438774;
+python scripts/tennis_donuts.py tennis/clip_8.mp4 tennis/rendered_clips/clip_8_p4.mp4 --outline 0  --court "664,268;1297,266;1624,872;338,870" --values 0.2215008304  0.4774271478;
+python scripts/tennis_donuts.py tennis/clip_8.mp4 tennis/rendered_clips/clip_8_p5.mp4 --outline 0  --court "664,268;1297,266;1624,872;338,870" --values 0.2684584025  0.4774271478;
+python scripts/tennis_donuts.py tennis/clip_8.mp4 tennis/rendered_clips/clip_8_p6.mp4 --outline 0  --court "664,268;1297,266;1624,872;338,870" --values 0.2684584025  0.3940812321;
+python scripts/tennis_donuts.py tennis/clip_8.mp4 tennis/rendered_clips/clip_8_p7.mp4 --outline 0  --court "664,268;1297,266;1624,872;338,870" --values 0.3252302582  0.3940812321;
+python scripts/tennis_donuts.py tennis/clip_8.mp4 tennis/rendered_clips/clip_8_p8.mp4 --outline 0  --court "664,268;1297,266;1624,872;338,870" --values 0  1
+
+
+### Bars
+*clip_1*
+python scripts/tennis_bars.py --perimeter-at center tennis/clip_1.mp4 tennis/rendered_clips_bar/clip_1_p1_bar.mp4 --court "549,247;1245,243;1603,899;190,918" --values 0.1509889778  0.8490110222;
+python scripts/tennis_bars.py --perimeter-at center tennis/clip_1.mp4 tennis/rendered_clips_bar/clip_1_p2_bar.mp4 --court "549,247;1245,243;1603,899;190,918" --values 0.1828476521  0.700739846;
+python scripts/tennis_bars.py --perimeter-at center tennis/clip_1.mp4 tennis/rendered_clips_bar/clip_1_p3_bar.mp4 --court "549,247;1245,243;1603,899;190,918" --values 0.2215008304  0.578438774;
+python scripts/tennis_bars.py --perimeter-at center tennis/clip_1.mp4 tennis/rendered_clips_bar/clip_1_p4_bar.mp4 --court "549,247;1245,243;1603,899;190,918" --values 0.2215008304  0.4774271478;
+python scripts/tennis_bars.py --perimeter-at center tennis/clip_1.mp4 tennis/rendered_clips_bar/clip_1_p5_bar.mp4 --court "549,247;1245,243;1603,899;190,918" --values 0.2684584025  0.4774271478;
+python scripts/tennis_bars.py --perimeter-at center tennis/clip_1.mp4 tennis/rendered_clips_bar/clip_1_p6_bar.mp4 --court "549,247;1245,243;1603,899;190,918" --values 0.2684584025  0.3940812321;
+python scripts/tennis_bars.py --perimeter-at center tennis/clip_1.mp4 tennis/rendered_clips_bar/clip_1_p7_bar.mp4 --court "549,247;1245,243;1603,899;190,918" --values 0.3252302582  0.3940812321
+python scripts/tennis_bars.py --perimeter-at center tennis/clip_1.mp4 tennis/rendered_clips_bar/clip_1_p8_bar.mp4 --court "549,247;1245,243;1603,899;190,918" --values 0  0.8490110222
+
+*clip_2*
+
+
+python scripts/tennis_bars.py --perimeter-at center tennis/clip_5.mp4 tennis/rendered_clips_bar/clip_5_p1_bar.mp4 --court "626,274;1260,270;1587,873;303,880" --values 0.1509889778  0.8490110222;
+python scripts/tennis_bars.py --perimeter-at center tennis/clip_5.mp4 tennis/rendered_clips_bar/clip_5_p2_bar.mp4 --court "626,274;1260,270;1587,873;303,880" --values 0.1828476521  0.700739846;
+python scripts/tennis_bars.py --perimeter-at center tennis/clip_5.mp4 tennis/rendered_clips_bar/clip_5_p3_bar.mp4 --court "626,274;1260,270;1587,873;303,880" --values 0.2215008304  0.578438774;
+python scripts/tennis_bars.py --perimeter-at center tennis/clip_5.mp4 tennis/rendered_clips_bar/clip_5_p4_bar.mp4 --court "626,274;1260,270;1587,873;303,880" --values 0.2215008304  0.4774271478;
+python scripts/tennis_bars.py --perimeter-at center tennis/clip_5.mp4 tennis/rendered_clips_bar/clip_5_p5_bar.mp4 --court "626,274;1260,270;1587,873;303,880" --values 0.2684584025  0.4774271478;
+python scripts/tennis_bars.py --perimeter-at center tennis/clip_5.mp4 tennis/rendered_clips_bar/clip_5_p6_bar.mp4 --court "626,274;1260,270;1587,873;303,880" --values 0.2684584025  0.3940812321;
+python scripts/tennis_bars.py --perimeter-at center tennis/clip_5.mp4 tennis/rendered_clips_bar/clip_5_p7_bar.mp4 --court "626,274;1260,270;1587,873;303,880" --values 0.3252302582  0.3940812321
+python scripts/tennis_bars.py --perimeter-at center tennis/clip_5.mp4 tennis/rendered_clips_bar/clip_5_p8_bar.mp4 --court "626,274;1260,270;1587,873;303,880" --values 0  0.8490110222
+
 
 ## Basketball
 

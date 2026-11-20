@@ -38,3 +38,4 @@ data/
 .idea/
 .DS_Store
 Thumbs.db
+*.png
